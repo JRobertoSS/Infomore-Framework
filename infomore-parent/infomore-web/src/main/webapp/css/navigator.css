@@ -1,0 +1,26 @@
+.menuNav{
+	background-color: #2EA9AB;
+	width: 100vw;
+	height: 10vh;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.navigator-item {
+	font-weight: bold;
+	color: #2EA9AB;
+	text-indent: -18px;
+}
+
+.divider {
+	color: #AAA;
+	background: #AAA;
+}
+
+.dropdown-content {
+	clear: right;
+}
+
