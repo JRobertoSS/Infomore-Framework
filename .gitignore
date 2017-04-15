@@ -44,8 +44,9 @@ bin/
 **/target/*
 *.orig
 
-persistence.xml
-
 .mvn
 
 
+infomore-parent/infomore-core/.gitignore
+infomore-parent/infomore-domain/.gitignore
+infomore-parent/infomore-web/.gitignore
