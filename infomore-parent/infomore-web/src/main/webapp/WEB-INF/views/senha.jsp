@@ -12,10 +12,10 @@
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
-<script type="text/javascript" src="js/materialize.min.js"></script>
-<script type="text/javascript" src="js/perfil.js"></script>
-<script type="text/javascript" src="js/comum.js"></script>
-<script type="text/javascript" src="js/senha.js"></script>
+<script type="text/javascript" src="/infomore/resources/js/materialize.min.js"></script>
+<script type="text/javascript" src="/infomore/resources/js/perfil.js"></script>
+<script type="text/javascript" src="/infomore/resources/js/comum.js"></script>
+<script type="text/javascript" src="/infomore/resources/js/senha.js"></script>
 
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLLbi_ei8WPPbzyCq5_UUCN0Iy--V3Lo"></script>
@@ -26,12 +26,12 @@
 	rel="stylesheet">
 
 
-<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+<link type="text/css" rel="stylesheet" href="/infomore/resources/css/materialize.min.css"
 	media="screen,projection" />
 
-<link href="css/comum.css" rel="stylesheet">
+<link href="/infomore/resources/css/comum.css" rel="stylesheet">
 
-<link href="css/senha.css" rel="stylesheet">
+<link href="/infomore/resources/css/senha.css" rel="stylesheet">
 
 
 

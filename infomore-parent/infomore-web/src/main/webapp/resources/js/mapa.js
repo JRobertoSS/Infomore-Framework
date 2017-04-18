@@ -16,7 +16,7 @@ $("#buttonOcorrencias").sideNav();*/
 
 document.mapIcones = new Map();
 
-document.mapIcones.set('Saúde', 'images/icon_saude.png').set('Educação', 'images/icon_educacao.png').set('Segurança', 'images/icon_seguranca.png').set('Comodidades', 'images/icon_comodidades.png').set('Lazer e Cultura', 'images/icon_lazer_cultura.png').set('Transportes', 'images/icon_transporte.png').set('Ocorrências', 'images/icon_ocorrencias.png').set('Meu Local', 'images/icon_person.png');
+document.mapIcones.set('Saúde', '/infomore/resources/images/icon_saude.png').set('Educação', '/infomore/resources/images/icon_educacao.png').set('Segurança', '/infomore/resources/images/icon_seguranca.png').set('Comodidades', '/infomore/resources/images/icon_comodidades.png').set('Lazer e Cultura', '/infomore/resources/images/icon_lazer_cultura.png').set('Transportes', '/infomore/resources/images/icon_transporte.png').set('Ocorrências', '/infomore/resources/images/icon_ocorrencias.png').set('Meu Local', '/infomore/resources/images/icon_person.png');
 
 
 // varre a lista de marcadores e seta o valor do map

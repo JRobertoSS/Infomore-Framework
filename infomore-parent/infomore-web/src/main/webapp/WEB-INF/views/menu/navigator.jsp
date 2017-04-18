@@ -1,5 +1,5 @@
-<link href="css/navigator.css" rel="stylesheet" />
-<script type="text/javascript" src="js/navigator.js"></script>
+<link href="/infomore/resources/css/navigator.css" rel="stylesheet" />
+<script type="text/javascript" src="/infomore/resources/js/navigator.js"></script>
 
 <nav>
 	<ul id="dropdownOpcoes" class="dropdown-content collection">
@@ -34,6 +34,6 @@
 					class="material-icons">settings</i></a></li>
 		</ul>
 		<a href="navegar?acao=mapa" class="right"><img
-			src="images/icon_mapa.png" /></a>
+			src="/infomore/resources/images/icon_mapa.png" /></a>
 	</div>
 </nav>

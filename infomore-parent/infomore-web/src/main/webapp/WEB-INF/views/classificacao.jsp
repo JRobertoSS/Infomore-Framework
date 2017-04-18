@@ -11,10 +11,10 @@
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="js/materialize.min.js"></script>
-<script type="text/javascript" src="js/classificacao.js"></script>
-<script type="text/javascript" src="js/comum.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="/infomore/resources/js/materialize.min.js"></script>
+<script type="text/javascript" src="/infomore/resources/js/classificacao.js"></script>
+<script type="text/javascript" src="/infomore/resources/js/comum.js"></script>
+<script type="text/javascript" src="/infomore/resources/js/bootstrap.js"></script>
 
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLLbi_ei8WPPbzyCq5_UUCN0Iy--V3Lo"></script>
@@ -23,12 +23,12 @@
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 
-<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+<link type="text/css" rel="stylesheet" href="/infomore/resources/css/materialize.min.css"
 	media="screen,projection" />
 
-<link href="css/bootstrap.css" rel="stylesheet">
+<link href="/infomore/resources/css/bootstrap.css" rel="stylesheet">
 
-<link href="css/classificacao.css" rel="stylesheet">
+<link href="/infomore/resources/css/classificacao.css" rel="stylesheet">
 
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />

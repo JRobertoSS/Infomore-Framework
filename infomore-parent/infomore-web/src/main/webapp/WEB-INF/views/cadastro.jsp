@@ -12,9 +12,9 @@
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
-<script type="text/javascript" src="js/materialize.min.js"></script>
-<script type="text/javascript" src="js/cadastro.js"></script>
-<script type="text/javascript" src="js/comum.js"></script>
+<script type="text/javascript" src="/infomore/resources/js/materialize.min.js"></script>
+<script type="text/javascript" src="/infomore/resources/js/cadastro.js"></script>
+<script type="text/javascript" src="/infomore/resources/js/comum.js"></script>
 
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLLbi_ei8WPPbzyCq5_UUCN0Iy--V3Lo"></script>
@@ -24,12 +24,12 @@
 
 
 
-<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+<link type="text/css" rel="stylesheet" href="/infomore/resources/css/materialize.min.css"
 	media="screen,projection" />
 
-<link href="css/comum.css" rel="stylesheet">
+<link href="/infomore/resources/css/comum.css" rel="stylesheet">
 
-<link href="css/cadastro.css" rel="stylesheet">
+<link href="/infomore/resources/css/cadastro.css" rel="stylesheet">
 
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,9 +40,9 @@
 	
 	<div id="page-content-wrapper" class="container">
 		
-		<img src="images/logo_infomore.png" alt="InfoMore" class="logo-infomore"/>
+		<img src="/infomore/resources/images/logo_infomore.png" alt="InfoMore" class="logo-infomore"/>
 		
-		<form action="cadastro" method="post" class="col s12" id="formCadastro">
+		<form action="cadastrar" method="post" class="col s12" id="formCadastro">
 			<div class="row form-content">
 				<div class="input-field col s10">
 					<i class="material-icons prefix">account_circle</i> <input

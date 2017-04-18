@@ -1,4 +1,4 @@
-<link href="css/mensagem.css" rel="stylesheet">
+<link href="/infomore/resources/css/mensagem.css" rel="stylesheet">
 
 <c:set value="${mensagem}" var="mensagem" scope="request" />
 <c:set value="${tipoMensagem}" var="tipoMensagem" scope="request" />

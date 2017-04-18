@@ -11,9 +11,9 @@
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="js/materialize.min.js"></script>
-<script type="text/javascript" src="js/mapa.js" charset="UTF-8"></script>
-<script type="text/javascript" src="js/comum.js"></script>
+<script type="text/javascript" src="/infomore/resources/js/materialize.min.js"></script>
+<script type="text/javascript" src="/infomore/resources/js/mapa.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/infomore/resources/js/comum.js"></script>
 
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLLbi_ei8WPPbzyCq5_UUCN0Iy--V3Lo"></script>
@@ -22,12 +22,12 @@
 	rel="stylesheet">
 
 
-<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+<link type="text/css" rel="stylesheet" href="/infomore/resources/css/materialize.min.css"
 	media="screen,projection" />
 
-<link href="css/comum.css" rel="stylesheet">
+<link href="/infomore/resources/css/comum.css" rel="stylesheet">
 
-<link href="css/mapa.css" rel="stylesheet">
+<link href="/infomore/resources/css/mapa.css" rel="stylesheet">
 
 
 <!--Let browser know website is optimized for mobile-->
@@ -66,7 +66,7 @@
 		<div class="fixed-action-btn click-to-toggle"
 			style="bottom: 20px; right: 20px;">
 			<a class="btn-floating btn-large pink"> <img alt="filtro"
-				src="images/infomore_button.png">
+				src="/infomore/resources/images/infomore_button.png">
 			</a>
 
 			<ul>

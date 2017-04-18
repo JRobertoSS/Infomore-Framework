@@ -10,7 +10,7 @@ public class Conexao {
 
 		try {
 			Class.forName("org.gjt.mm.mysql.Driver");
-			return DriverManager.getConnection("jdbc:mysql://localhost:3306/infomore", "root", "12345");
+			return DriverManager.getConnection("jdbc:mysql://localhost:3306/infomore", "root", "123");
 		} catch (SQLException e) {
 			// relanando a exception
 			throw new RuntimeException(e);
