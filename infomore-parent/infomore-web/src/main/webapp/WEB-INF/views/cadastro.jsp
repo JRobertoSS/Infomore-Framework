@@ -87,14 +87,14 @@
 					</div>
 					<div class="col s6">
 						<a class="waves-effect waves-light btn botao-cancelar"
-							href="navegar?acao=login">Cancelar</a>
+							href="login">Cancelar</a>
 					</div>
 
 				</div>
 				<div class="row col s12 center-align">
 					<div class="col s12">
 						<a class="waves-effect waves-light btn botao-limpar"
-							href="navegar?acao=cadastro">Limpar dados</a>
+							href="cadastro">Limpar dados</a>
 					</div>
 				</div>
 			</div>

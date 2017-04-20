@@ -1,14 +1,17 @@
 
 package br.com.infomore.controle.web.command.impl;
 
+import org.springframework.stereotype.Component;
+
 import br.com.infomore.core.aplicacao.Resultado;
 import br.com.infomore.dominio.EntidadeDominio;
 
-public class ListarCommand extends AbstractCommand {
+@Component
+public class ListarCommand implements InfomoreCommand {
 
-    public Resultado execute(EntidadeDominio entidade) {
+	public Resultado execute(EntidadeDominio entidade) {
 
-	return fachada.listar(entidade);
-    }
+		return fachada.listar(entidade);
+	}
 
 }
