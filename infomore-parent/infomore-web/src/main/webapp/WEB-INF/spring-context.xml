@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
     http://www.springframework.org/schema/beans 
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     http://www.springframework.org/schema/context 
-    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/util 
+    http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
 	<context:component-scan base-package="br.com.infomore" />
 	<mvc:annotation-driven />
+
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -18,18 +21,145 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-
-	
 	<mvc:interceptors>
 		<bean class="br.com.infomore.web.interceptor.AutorizadorInterceptor" />
 	</mvc:interceptors>
-	
+
 	<mvc:resources mapping="resources/**" location="resources/"
-	cache-period="31556926"/>
+		cache-period="31556926" />
 	
-	<!-- Command com a injeção da fachada -->
-	<bean id="infomoreCommand" class="br.com.infomore.controle.web.command.impl.InfomoreCommand">
+	
+		
+		<!-- Impl dos Strategies utilizados nas operações de usuário -->
+	<bean id="validaEmail"
+		class="br.com.infomore.core.impl.negocio.usuario.ValidaEmailUnicoUsuario" />
+	<bean id="validaCamposCadastro"
+		class="br.com.infomore.core.impl.negocio.usuario.ValidaCamposCadastroUsuario" />
+	<bean id="validaLogin"
+		class="br.com.infomore.core.impl.negocio.usuario.ValidaLoginUsuario" />
+	<bean id="validaCamposAlteracaoPerfil"
+		class="br.com.infomore.core.impl.negocio.usuario.ValidaCamposAlteracaoPerfilUsuario" />
+	<bean id="validaCamposAlteracaoSenha"
+		class="br.com.infomore.core.impl.negocio.usuario.ValidaCamposAlteracaoSenhaUsuario" />
+	<bean id="validaConfirmacaoSenha"
+		class="br.com.infomore.core.impl.negocio.usuario.ValidaConfirmacaoSenhaUsuario" />
+	<bean id="validaSenhaAtualUsuario"
+		class="br.com.infomore.core.impl.negocio.usuario.ValidaSenhaAtualUsuario" />
+	<bean id="preencheSenhaNova"
+		class="br.com.infomore.core.impl.negocio.usuario.PreencheSenhaNovaUsuario" />
+
+	<!-- Regras para salvar usuário -->
+	<util:list id="rnsSalvarUsuario" list-class="java.util.ArrayList">
+		<ref bean="validaEmail" />
+		<ref bean="validaCamposCadastro" />
+		<ref bean="validaConfirmacaoSenha" />
+	</util:list>
+
+	<!-- Regras para alterar o perfil do usuário -->
+	<util:list id="rnsAlterarPerfilUsuario" list-class="java.util.ArrayList">
+		<ref bean="validaEmail" />
+		<ref bean="validaCamposAlteracaoPerfil" />
+		<ref bean="validaConfirmacaoSenha" />
+	</util:list>
+
+	<!-- Regras para alterar a senha do usuário -->
+	<util:list id="rnsAlterarSenhaUsuario" list-class="java.util.ArrayList">
+		<ref bean="validaCamposAlteracaoSenha" />
+		<ref bean="validaSenhaAtualUsuario" />
+		<ref bean="validaConfirmacaoSenha" />
+		<ref bean="preencheSenhaNova" />
+	</util:list>
+
+	<!-- Regras para consultar usuário (login) -->
+	<util:list id="rnsConsultarUsuario" list-class="java.util.ArrayList">
+		<ref bean="validaLogin" />
+	</util:list>
+
+	<!-- Mapa de String(nome da operação) e List<IStrategy> das regras das operações 
+		de usuário -->
+	<util:map id="rnsUsuario" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="java.lang.List">
+		<entry key="salvar" value-ref="rnsSalvarUsuario" />
+		<entry key="alterarPerfil" value-ref="rnsAlterarPerfilUsuario" />
+		<entry key="alterarSenha" value-ref="rnsAlterarSenhaUsuario" />
+		<entry key="consultar" value-ref="rnsConsultarUsuario" />
+	</util:map>
+
+
+
+	<!-- Mapa de String(nome da classe) e Map<String (nome da operação), List<IStrategy> 
+		(regras)> -->
+
+	<util:map id="rns" map-class="java.util.HashMap" key-type="java.lang.String"
+		value-type="java.util.Map">
+		<entry key="br.com.infomore.dominio.Usuario" value-ref="rnsUsuario" />
+	</util:map>
+
+	<!-- Fachada com a injeção do mapa de rns e de daos -->
+
+	<bean id="fachada" class="br.com.infomore.core.impl.controle.Fachada"
+		scope="singleton">
+		<property name="rns" ref="rns" />
+	</bean>
+
+	<!-- <property name="daos"> <map> <entry key="fai.domain.TipoCliente" value-ref="tipoClienteDAO" 
+		/> <entry key="fai.domain.Categoria" value-ref="categoriaJpaDAO" /> </map> 
+		</property> -->
+
+	
+
+	
+
+
+
+	<bean id="alterarClassificacaoCommand"
+		class="br.com.infomore.controle.web.command.impl.AlterarClassificacaoCommand">
 		<property name="fachada" ref="fachada" />
 	</bean>
-	
+
+	<bean id="alterarCommand"
+		class="br.com.infomore.controle.web.command.impl.AlterarCommand">
+		<property name="fachada" ref="fachada" />
+	</bean>
+
+	<bean id="alterarPerfilCommand"
+		class="br.com.infomore.controle.web.command.impl.AlterarPerfilCommand">
+		<property name="fachada" ref="fachada" />
+	</bean>
+	<bean id="alterarSenhaCommand"
+		class="br.com.infomore.controle.web.command.impl.AlterarSenhaCommand">
+		<property name="fachada" ref="fachada" />
+	</bean>
+
+	<bean id="consultarCommand"
+		class="br.com.infomore.controle.web.command.impl.ConsultarCommand">
+		<property name="fachada" ref="fachada" />
+	</bean>
+
+	<bean id="excluirCommand"
+		class="br.com.infomore.controle.web.command.impl.ExcluirCommand">
+		<property name="fachada" ref="fachada" />
+	</bean>
+
+	<bean id="listarCommand" class="br.com.infomore.controle.web.command.impl.ListarCommand">
+		<property name="fachada" ref="fachada" />
+	</bean>
+
+	<bean id="salvarCommand" class="br.com.infomore.controle.web.command.impl.SalvarCommand">
+		<property name="fachada" ref="fachada" />
+	</bean>
+
+	<util:map id="commands" map-class="java.util.HashMap"
+		key-type="java.lang.String" value-type="br.com.infomore.controle.web.command.ICommand">
+		<entry key="alterarClassificacaoCommand" value-ref="alterarClassificacaoCommand" />
+		<entry key="alterarCommand" value-ref="alterarCommand" />
+		<entry key="alterarPerfilCommand" value-ref="alterarPerfilCommand" />
+		<entry key="alterarSenhaCommand" value-ref="alterarSenhaCommand" />
+		<entry key="consultarCommand" value-ref="consultarCommand" />
+		<entry key="excluirCommand" value-ref="excluirCommand" />
+		<entry key="listarCommand" value-ref="listarCommand" />
+		<entry key="salvarCommand" value-ref="salvarCommand" />
+	</util:map>
+
+
 </beans>

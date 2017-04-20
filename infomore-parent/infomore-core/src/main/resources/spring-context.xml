@@ -1,112 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
     http://www.springframework.org/schema/beans 
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     http://www.springframework.org/schema/context 
-    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/util 
+    http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
 	<context:component-scan base-package="br.com.infomore" />
 	<mvc:annotation-driven />
-
-	<!-- Impl dos Strategies utilizados nas operações de usuário -->
-	<bean id="validaEmail"
-		class="br.com.infomore.core.impl.negocio.usuario.ValidaEmailUnicoUsuario" />
-	<bean id="validaCamposCadastro"
-		class="br.com.infomore.core.impl.negocio.usuario.ValidaCamposCadastroUsuario" />
-	<bean id="validaLogin"
-		class="br.com.infomore.core.impl.negocio.usuario.ValidaLoginUsuario" />
-	<bean id="validaCamposAlteracaoPerfil"
-		class="br.com.infomore.core.impl.negocio.usuario.ValidaCamposAlteracaoPerfilUsuario" />
-	<bean id="validaCamposAlteracaoSenha"
-		class="br.com.infomore.core.impl.negocio.usuario.ValidaCamposAlteracaoSenhaUsuario" />
-	<bean id="validaConfirmacaoSenha"
-		class="br.com.infomore.core.impl.negocio.usuario.ValidaConfirmacaoSenhaUsuario" />
-	<bean id="validaSenhaAtualUsuario"
-		class="br.com.infomore.core.impl.negocio.usuario.ValidaSenhaAtualUsuario" />
-	<bean id="preencheSenhaNova"
-		class="br.com.infomore.core.impl.negocio.usuario.PreencheSenhaNovaUsuario" />
-
-	<!-- Regras para salvar usuário -->
-	<bean id="rnsSalvarUsuario" class="java.util.ArrayList" scope="prototype">
-		<constructor-arg>
-			<list>
-				<ref bean="validaEmail" />
-				<ref bean="validaCamposCadastro" />
-				<ref bean="validaConfirmacaoSenha" />
-			</list>
-		</constructor-arg>
-	</bean>
-
-	<!-- Regras para alterar o perfil do usuário -->
-	<bean id="rnsAlterarPerfilUsuario" class="java.util.ArrayList"
-		scope="prototype">
-		<constructor-arg>
-			<list>
-				<ref bean="validaEmail" />
-				<ref bean="validaCamposAlteracaoPerfil" />
-				<ref bean="validaConfirmacaoSenha" />
-			</list>
-		</constructor-arg>
-	</bean>
-	<!-- Regras para alterar a senha do usuário -->
-	<bean id="rnsAlterarSenhaUsuario" class="java.util.ArrayList"
-		scope="prototype">
-		<constructor-arg>
-			<list>
-				<ref bean="validaCamposAlteracaoSenha" />
-				<ref bean="validaSenhaAtualUsuario" />
-				<ref bean="validaConfirmacaoSenha" />
-				<ref bean="preencheSenhaNova" />
-			</list>
-		</constructor-arg>
-	</bean>
-
-	<!-- Regras para consultar usuário (login) -->
-	<bean id="rnsConsultarUsuario" class="java.util.ArrayList" scope="prototype">
-		<constructor-arg>
-			<list>
-				<ref bean="validaLogin" />
-			</list>
-		</constructor-arg>
-	</bean>
-
-	<!-- Mapa de String(nome da operação) e List<IStrategy> das regras das operações 
-		de usuário -->
-	<bean id="rnsUsuario" class="java.util.HashMap" scope="prototype">
-		<constructor-arg>
-			<map key-type="java.lang.String" value-type="br.com.infomore.core.IStrategy">
-				<entry key="salvar" value-ref="rnsSalvarUsuario" />
-				<entry key="alterarPerfil" value-ref="rnsAlterarPerfilUsuario" />
-				<entry key="alterarSenha" value-ref="rnsAlterarSenhaUsuario" />
-				<entry key="consultar" value-ref="rnsConsultarUsuario" />
-			</map>
-		</constructor-arg>
-	</bean>
-
-
-
-	<!-- Mapa de String(nome da classe) e Map<String (nome da operação), List<IStrategy> 
-		(regras)> -->
-
-	<bean id="rns" class="java.util.HashMap" scope="prototype">
-		<constructor-arg>
-			<map key-type="java.lang.String" value-type="java.util.HashMap">
-				<entry key="Usuario" value-ref="rnsUsuario" />
-			</map>
-		</constructor-arg>
-	</bean>
-
-	<!-- Fachada com a injeção do mapa de rns -->
-
-	<bean id="fachada" class="br.com.infomore.core.impl.controle.Fachada"
-		scope="prototype" autowire="byName">
-		<property name="rns" ref="rns" />
-	</bean>
-
 	
+
 
 </beans>

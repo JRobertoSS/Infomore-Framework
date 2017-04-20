@@ -35,7 +35,7 @@ public class LoginController extends InfomoreController{
 	    return usuario.isExecutarWizard() ? "classificacao" : "mapa";
 	    
 	  }
-	  setMensagem(request.getSession(), resultado.getMsg(), TipoMensagemView.MSG_ERRO);
+	  setMensagem(request.getSession(), resultado.getMsg(), TipoMensagemView.MSG_ALERTA);
 	  return "login";
 	}
 	

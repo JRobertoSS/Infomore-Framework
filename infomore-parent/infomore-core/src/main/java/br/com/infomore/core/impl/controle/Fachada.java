@@ -39,13 +39,9 @@ public class Fachada implements IFachada {
 	private Map<String, Map<String, List<IStrategy>>> rns;
 
 	private Resultado resultado;
-	
-	public Fachada(){
-		
-	}
 
-	public Fachada(Map<String, Map<String, List<IStrategy>>> rns) {
-		this.rns = rns;
+	public Fachada() {
+	
 
 		/**
 		 * -------------- MAPAS DE DAO E STRATEGY---------------------

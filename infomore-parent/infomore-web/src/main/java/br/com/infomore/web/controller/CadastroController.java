@@ -30,7 +30,7 @@ public class CadastroController extends InfomoreController{
 	    return "classificacao";
 	    
 	  }
-	  setMensagem( request.getSession(), resultado.getMsg(), TipoMensagemView.MSG_SUCESSO);
+	  setMensagem( request.getSession(), resultado.getMsg(), TipoMensagemView.MSG_ALERTA);
 	  return "cadastro";
 	}
 

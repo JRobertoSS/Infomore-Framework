@@ -17,14 +17,7 @@ public class InfomoreController {
 	@Autowired
 	protected Map<String, ICommand> commands;
 
-	public Map<String, ICommand> getCommands() {
-		return commands;
-	}
 
-	public void setCommands(Map<String, ICommand> commands) {
-		this.commands = commands;
-	}
-	
 	public Resultado processar(EntidadeDominio entidade, HttpServletRequest request, String acao){
 		return commands.get( acao ).execute(entidade);
 	}
@@ -37,5 +30,15 @@ public class InfomoreController {
 	protected String getMensagemSucesso( String entidade, String operacao){
 		return entidade + " " + operacao + " com sucesso!"; 
 	}
+	
+	
+	public Map<String, ICommand> getCommands() {
+		return commands;
+	}
+
+	public void setCommands(Map<String, ICommand> commands) {
+		this.commands = commands;
+	}
+	
 	
 }

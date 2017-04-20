@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import br.com.infomore.core.aplicacao.Resultado;
 import br.com.infomore.dominio.EntidadeDominio;
 
-@Component
+
 public class ListarCommand extends InfomoreCommand {
 
 	public Resultado execute(EntidadeDominio entidade) {
