@@ -8,8 +8,12 @@ import br.com.infomore.core.IFachada;
 import br.com.infomore.core.impl.controle.Fachada;
 
 
-public interface InfomoreCommand extends ICommand {
+public abstract class InfomoreCommand implements ICommand {
 		
-	IFachada fachada = new Fachada();
+	@Autowired
+	protected IFachada fachada;
 	
+	public void setFachada(IFachada fachada) {
+		this.fachada = fachada;
+	}
 }

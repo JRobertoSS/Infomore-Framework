@@ -7,8 +7,7 @@
     http://www.springframework.org/schema/beans 
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     http://www.springframework.org/schema/context 
-    http://www.springframework.org/schema/context/spring-context-3.0.xsd"
-	xmlns:util="http://www.springframework.org/schema/util">
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<context:component-scan base-package="br.com.infomore" />
 	<mvc:annotation-driven />
@@ -32,327 +31,82 @@
 		class="br.com.infomore.core.impl.negocio.usuario.PreencheSenhaNovaUsuario" />
 
 	<!-- Regras para salvar usuário -->
-	<util:list id="rnsSalvarUsuario" value-type="br.com.infomore.core.IStrategy">
-		<ref bean="validaEmail" />
-		<ref bean="validaCamposCadastro" />
-		<ref bean="validaConfirmacaoSenha" />
-	</util:list>
+	<bean id="rnsSalvarUsuario" class="java.util.ArrayList" scope="prototype">
+		<constructor-arg>
+			<list>
+				<ref bean="validaEmail" />
+				<ref bean="validaCamposCadastro" />
+				<ref bean="validaConfirmacaoSenha" />
+			</list>
+		</constructor-arg>
+	</bean>
 
 	<!-- Regras para alterar o perfil do usuário -->
-	<util:list id="rnsAlterarPerfilUsuario" value-type="br.com.infomore.core.IStrategy">
-		<ref bean="validaEmail" />
-		<ref bean="validaCamposAlteracaoPerfil" />
-		<ref bean="validaConfirmacaoSenha" />
-	</util:list>
-
+	<bean id="rnsAlterarPerfilUsuario" class="java.util.ArrayList"
+		scope="prototype">
+		<constructor-arg>
+			<list>
+				<ref bean="validaEmail" />
+				<ref bean="validaCamposAlteracaoPerfil" />
+				<ref bean="validaConfirmacaoSenha" />
+			</list>
+		</constructor-arg>
+	</bean>
 	<!-- Regras para alterar a senha do usuário -->
-	<util:list id="rnsAlterarSenhaUsuario" value-type="br.com.infomore.core.IStrategy">
-		<ref bean="validaCamposAlteracaoSenha" />
-		<ref bean="validaSenhaAtualUsuario" />
-		<ref bean="validaConfirmacaoSenha" />
-		<ref bean="preencheSenhaNova" />
-	</util:list>
+	<bean id="rnsAlterarSenhaUsuario" class="java.util.ArrayList"
+		scope="prototype">
+		<constructor-arg>
+			<list>
+				<ref bean="validaCamposAlteracaoSenha" />
+				<ref bean="validaSenhaAtualUsuario" />
+				<ref bean="validaConfirmacaoSenha" />
+				<ref bean="preencheSenhaNova" />
+			</list>
+		</constructor-arg>
+	</bean>
 
 	<!-- Regras para consultar usuário (login) -->
-	<util:list id="rnsConsultarUsuario" value-type="br.com.infomore.core.IStrategy">
-		<ref bean="validaLogin" />
-	</util:list>
+	<bean id="rnsConsultarUsuario" class="java.util.ArrayList" scope="prototype">
+		<constructor-arg>
+			<list>
+				<ref bean="validaLogin" />
+			</list>
+		</constructor-arg>
+	</bean>
 
 	<!-- Mapa de String(nome da operação) e List<IStrategy> das regras das operações 
 		de usuário -->
-	<util:map id="rnsUsuario" class="java.util.HashMap">
-		<entry key="salvar" value-ref="rnsSalvarUsuario" />
-		<entry key="alterarPerfil" value-ref="rnsAlterarPerfilUsuario" />
-		<entry key="alterarSenha" value-ref="rnsAlterarSenhaUsuario" />
-		<entry key="consultar" value-ref="rnsConsultarUsuario" />
-	</util:map>
+	<bean id="rnsUsuario" class="java.util.HashMap" scope="prototype">
+		<constructor-arg>
+			<map key-type="java.lang.String" value-type="br.com.infomore.core.IStrategy">
+				<entry key="salvar" value-ref="rnsSalvarUsuario" />
+				<entry key="alterarPerfil" value-ref="rnsAlterarPerfilUsuario" />
+				<entry key="alterarSenha" value-ref="rnsAlterarSenhaUsuario" />
+				<entry key="consultar" value-ref="rnsConsultarUsuario" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+
 
 	<!-- Mapa de String(nome da classe) e Map<String (nome da operação), List<IStrategy> 
 		(regras)> -->
-	<util:map id="rns" class="java.util.HashMap">
-		<entry key="Usuario" value-ref="rnsUsuario" />
-	</util:map>
 
-<!-- 	<bean id="fachada" class="br.com.infomore.core.impl.controle.Fachada">
+	<bean id="rns" class="java.util.HashMap" scope="prototype">
+		<constructor-arg>
+			<map key-type="java.lang.String" value-type="java.util.HashMap">
+				<entry key="Usuario" value-ref="rnsUsuario" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<!-- Fachada com a injeção do mapa de rns -->
+
+	<bean id="fachada" class="br.com.infomore.core.impl.controle.Fachada"
+		scope="prototype" autowire="byName">
 		<property name="rns" ref="rns" />
-	</bean> -->
-	
-	<bean id="fachada" class="br.com.infomore.core.impl.controle.Fachada" autowire="byName"/>
-
-
-<!-- MODIFICAR BASEADO NO EXEMPLO A SEGUIR-->
-
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="
-    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
-    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd"
-	default-lazy-init="true" default-autowire="no">
-
-	<bean id="clsBeginSessionRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.BeginSessionRequest" />
-	</bean>
-
-	<bean id="clsEndSessionRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.EndSessionRequest" />
-	</bean>
-
-	<bean id="clsCreateCatalogRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg
-			value="br.com.magoserver.model.request.CreateCatalogRequest" />
-	</bean>
-
-	<bean id="clsCreateUserRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.CreateUserRequest" />
-	</bean>
-
-	<bean id="clsCreateCubeRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.CreateCubeRequest" />
-	</bean>
-
-	<bean id="clsSetGrantRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.SetGrantRequest" />
-	</bean>
-
-	<bean id="clsLoadRequest" class="java.lang.Class" factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.LoadRequest" />
-	</bean>
-
-	<bean id="clsProcessRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.ProcessRequest" />
-	</bean>
-
-	<bean id="clsFindCatalogRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.FindCatalogRequest" />
-	</bean>
-
-	<bean id="clsFindCubeRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.FindCubeRequest" />
-	</bean>
-
-	<bean id="clsUpdateCatalogRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg
-			value="br.com.magoserver.model.request.UpdateCatalogRequest" />
-	</bean>
-
-	<bean id="clsUpdateCubeRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.UpdateCubeRequest" />
-	</bean>
-
-	<bean id="clsFindUserRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.FindUserRequest" />
-	</bean>
-
-	<bean id="clsUpdateUserRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.UpdateUserRequest" />
-	</bean>
-
-	<bean id="clsRequest" class="java.lang.Class" factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.Request" />
-	</bean>
-
-	<bean id="clsQueryRequest" class="java.lang.Class" factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.QueryRequest" />
-	</bean>
-
-	<bean id="clsDeleteCatalogRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg
-			value="br.com.magoserver.model.request.DeleteCatalogRequest" />
-	</bean>
-
-	<bean id="clsDeleteCubeRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.DeleteCubeRequest" />
-	</bean>
-
-	<bean id="clsConfigRequest" class="java.lang.Class"
-		factory-method="forName">
-		<constructor-arg value="br.com.magoserver.model.request.ConfigRequest" />
-	</bean>
-
-	<bean id="beginSessionService" class="java.lang.Integer">
-		<constructor-arg value="0" />
-	</bean>
-
-	<bean id="endSessionService" class="java.lang.Integer">
-		<constructor-arg value="1" />
-	</bean>
-
-	<bean id="createCatalogService" class="java.lang.Integer">
-		<constructor-arg value="2" />
-	</bean>
-
-	<bean id="createUserService" class="java.lang.Integer">
-		<constructor-arg value="3" />
-	</bean>
-
-	<bean id="setGrantService" class="java.lang.Integer">
-		<constructor-arg value="4" />
-	</bean>
-
-	<bean id="createCubeService" class="java.lang.Integer">
-		<constructor-arg value="5" />
-	</bean>
-
-	<bean id="loadService" class="java.lang.Integer">
-		<constructor-arg value="6" />
-	</bean>
-
-	<bean id="processService" class="java.lang.Integer">
-		<constructor-arg value="7" />
-	</bean>
-
-	<bean id="findCatalogService" class="java.lang.Integer">
-		<constructor-arg value="8" />
-	</bean>
-
-	<bean id="findCubeService" class="java.lang.Integer">
-		<constructor-arg value="9" />
-	</bean>
-
-	<bean id="updateCatalogService" class="java.lang.Integer">
-		<constructor-arg value="10" />
-	</bean>
-
-	<bean id="updateCubeService" class="java.lang.Integer">
-		<constructor-arg value="11" />
-	</bean>
-
-	<bean id="findUserService" class="java.lang.Integer">
-		<constructor-arg value="12" />
-	</bean>
-
-	<bean id="updateUserService" class="java.lang.Integer">
-		<constructor-arg value="13" />
-	</bean>
-
-	<bean id="queryService" class="java.lang.Integer">
-		<constructor-arg value="14" />
-	</bean>
-
-	<bean id="deleteCatalogService" class="java.lang.Integer">
-		<constructor-arg value="15" />
-	</bean>
-
-	<bean id="deleteCubeService" class="java.lang.Integer">
-		<constructor-arg value="16" />
-	</bean>
-
-	<bean id="configService" class="java.lang.Integer">
-		<constructor-arg value="17" />
-	</bean>
-	
-	<!-- View Helpers -->
-	
-	<bean id="beginSessionRequestHelper" class="br.com.magoserver.helper.impl.BeginSessionRequestHelper"/>
-	<bean id="endSessionRequestHelper" class="br.com.magoserver.helper.impl.EndSessionRequestHelper"/>
-	<bean id="createCatalogRequestHelper" class="br.com.magoserver.helper.impl.CreateCatalogRequestHelper"/>
-	<bean id="createUserRequestHelper" class="br.com.magoserver.helper.impl.CreateUserRequestHelper"/>
-	<bean id="createCubeRequestHelper" class="br.com.magoserver.helper.impl.CreateCubeRequestHelper"/>
-	<bean id="setGrantRequestHelper" class="br.com.magoserver.helper.impl.SetGrantRequestHelper"/>
-	<bean id="loadRequestHelper" class="br.com.magoserver.helper.impl.LoadRequestHelper"/>
-	<bean id="processRequestHelper" class="br.com.magoserver.helper.impl.ProcessRequestHelper"/>
-	<bean id="findCatalogRequestHelper" class="br.com.magoserver.helper.impl.FindCatalogRequestHelper"/>
-	<bean id="findCubeRequestHelper" class="br.com.magoserver.helper.impl.FindCubeRequestHelper"/>
-	<bean id="updateCatalogRequestHelper" class="br.com.magoserver.helper.impl.UpdateCatalogRequestHelper"/>
-	<bean id="updateCubeRequestHelper" class="br.com.magoserver.helper.impl.UpdateCubeRequestHelper"/>
-	<bean id="findUserRequestHelper" class="br.com.magoserver.helper.impl.FindUserRequestHelper"/>
-	<bean id="updateUserRequestHelper" class="br.com.magoserver.helper.impl.UpdateUserRequestHelper"/>
-	<bean id="queryRequestHelper" class="br.com.magoserver.helper.impl.QueryRequestHelper"/>
-	<bean id="deleteCatalogRequestHelper" class="br.com.magoserver.helper.impl.DeleteCatalogRequestHelper"/>
-	<bean id="deleteCubeRequestHelper" class="br.com.magoserver.helper.impl.DeleteCubeRequestHelper"/>
-	<bean id="configRequestHelper" class="br.com.magoserver.helper.impl.ConfigRequestHelper"/>
-	<bean id="requestHelper" class="br.com.magoserver.helper.impl.RequestHelper"/>
-
-	<bean id="requestClasses" class="java.util.HashMap" scope="prototype">
-		<constructor-arg>
-			<map key-type="java.lang.Integer" value-type="java.lang.Class">
-				<entry key-ref="beginSessionService" value-ref="clsBeginSessionRequest" /> <!-- 0 -->
-				<entry key-ref="endSessionService" value-ref="clsEndSessionRequest" /> <!-- 1 -->
-				<entry key-ref="createCatalogService" value-ref="clsCreateCatalogRequest" /> <!-- 2 -->
-				<entry key-ref="createUserService" value-ref="clsCreateUserRequest" /> <!-- 3 -->
-				<entry key-ref="setGrantService" value-ref="clsSetGrantRequest" /> <!-- 4 -->
-				<entry key-ref="createCubeService" value-ref="clsCreateCubeRequest" /> <!-- 5 -->
-				<entry key-ref="loadService" value-ref="clsLoadRequest" /> <!-- 6 -->
-				<entry key-ref="processService" value-ref="clsProcessRequest" /> <!-- 7 -->
-				<entry key-ref="findCatalogService" value-ref="clsFindCatalogRequest" /> <!-- 8 -->
-				<entry key-ref="findCubeService" value-ref="clsFindCubeRequest" /> <!-- 9 -->
-				<entry key-ref="updateCatalogService" value-ref="clsUpdateCatalogRequest" /> <!-- 10 -->
-				<entry key-ref="updateCubeService" value-ref="clsUpdateCubeRequest" /> <!-- 11 -->
-				<entry key-ref="findUserService" value-ref="clsFindUserRequest" /> <!-- 12 -->
-				<entry key-ref="updateUserService" value-ref="clsUpdateUserRequest" /> <!-- 13 -->
-				<entry key-ref="queryService" value-ref="clsQueryRequest" /> <!-- 14 -->
-				<entry key-ref="deleteCatalogService" value-ref="clsDeleteCatalogRequest" /> <!-- 15 -->
-				<entry key-ref="deleteCubeService" value-ref="clsDeleteCubeRequest" /> <!-- 16 -->
-				<entry key-ref="configService" value-ref="clsConfigRequest" /> <!-- 17 -->
-			</map>
-		</constructor-arg>
-	</bean>
-	
-	<bean id="helpers" class="java.util.HashMap" scope="prototype">
-		<constructor-arg>
-			<map key-type="java.lang.Class" value-type="br.com.magoserver.helper.IHelper">
-				<entry key-ref="clsRequest" value-ref="requestHelper" /> 
-				<entry key-ref="clsBeginSessionRequest" value-ref="beginSessionRequestHelper" /> <!-- 0 -->
-				<entry key-ref="clsEndSessionRequest" value-ref="endSessionRequestHelper" /> <!-- 1 -->
-				<entry key-ref="clsCreateCatalogRequest" value-ref="createCatalogRequestHelper" /> <!-- 2 -->
-				<entry key-ref="clsCreateUserRequest" value-ref="createUserRequestHelper" /> <!-- 3 -->
-				<entry key-ref="clsSetGrantRequest" value-ref="setGrantRequestHelper" /> <!-- 4 -->
-				<entry key-ref="clsCreateCubeRequest" value-ref="createCubeRequestHelper" /> <!-- 5 -->
-				<entry key-ref="clsLoadRequest" value-ref="loadRequestHelper" /> <!-- 6 -->
-				<entry key-ref="clsProcessRequest" value-ref="processRequestHelper" /> <!-- 7 -->
-				<entry key-ref="clsFindCatalogRequest" value-ref="findCatalogRequestHelper" /> <!-- 8 -->
-				<entry key-ref="clsFindCubeRequest" value-ref="findCubeRequestHelper" /> <!-- 9 -->
-				<entry key-ref="clsUpdateCatalogRequest" value-ref="updateCatalogRequestHelper" /> <!-- 10 -->
-				<entry key-ref="clsUpdateCubeRequest" value-ref="updateCubeRequestHelper" /> <!-- 11 -->
-				<entry key-ref="clsFindUserRequest" value-ref="findUserRequestHelper" /> <!-- 12 -->
-				<entry key-ref="clsUpdateUserRequest" value-ref="updateUserRequestHelper" /> <!-- 13 -->
-				<entry key-ref="clsQueryRequest" value-ref="queryRequestHelper" /> <!-- 14 -->
-				<entry key-ref="clsDeleteCatalogRequest" value-ref="deleteCatalogRequestHelper" /> <!-- 15 -->
-				<entry key-ref="clsDeleteCubeRequest" value-ref="deleteCubeRequestHelper" /> <!-- 16 -->
-				<entry key-ref="clsConfigRequest" value-ref="configRequestHelper" /> <!-- 17 -->
-			</map>
-		</constructor-arg>
 	</bean>
 
 	
-	<context:property-placeholder location="#{'file:' + systemProperties['path']  + '/conf/server.mg'}"/>
-	
-	<bean id="serverSocket" class="java.net.ServerSocket">
-		<constructor-arg value="${mago.port}" />
-		<constructor-arg value="${mago.backlog}" />
-	</bean>
-
-	<bean id="magoFacade" class="br.com.magoserver.control.impl.MagoFacade" />
-	
-	
-	<bean id="magoServerWorker" class="br.com.magoserver.control.impl.MagoServerWorker" 
-	    scope="prototype">
-		<constructor-arg ref="serverSocket" />
-		<constructor-arg ref="requestClasses" />
-		<constructor-arg ref="helpers" />
-		<constructor-arg ref="magoFacade" />
-	</bean>
-
-</beans>
-
-
-
 
 </beans>

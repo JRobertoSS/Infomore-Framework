@@ -7,7 +7,7 @@ import br.com.infomore.core.aplicacao.Resultado;
 import br.com.infomore.dominio.EntidadeDominio;
 
 @Component
-public class AlterarPerfilCommand implements InfomoreCommand {
+public class AlterarPerfilCommand extends InfomoreCommand {
 
 	public Resultado execute(EntidadeDominio entidade) {
 

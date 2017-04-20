@@ -7,8 +7,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import br.com.infomore.core.IFachada;
 import br.com.infomore.core.IStrategy;
@@ -18,21 +16,14 @@ import br.com.infomore.core.impl.dao.CategoriaDAO;
 import br.com.infomore.core.impl.dao.LimiteRaioDAO;
 import br.com.infomore.core.impl.dao.PontoDAO;
 import br.com.infomore.core.impl.dao.UsuarioDAO;
-import br.com.infomore.core.impl.negocio.usuario.PreencheSenhaNovaUsuario;
-import br.com.infomore.core.impl.negocio.usuario.ValidaCamposAlteracaoPerfilUsuario;
-import br.com.infomore.core.impl.negocio.usuario.ValidaCamposAlteracaoSenhaUsuario;
-import br.com.infomore.core.impl.negocio.usuario.ValidaCamposCadastroUsuario;
-import br.com.infomore.core.impl.negocio.usuario.ValidaConfirmacaoSenhaUsuario;
-import br.com.infomore.core.impl.negocio.usuario.ValidaEmailUnicoUsuario;
-import br.com.infomore.core.impl.negocio.usuario.ValidaLoginUsuario;
-import br.com.infomore.core.impl.negocio.usuario.ValidaSenhaAtualUsuario;
+
 import br.com.infomore.dominio.Categoria;
 import br.com.infomore.dominio.EntidadeDominio;
 import br.com.infomore.dominio.LimiteRaio;
 import br.com.infomore.dominio.Ponto;
 import br.com.infomore.dominio.Usuario;
 
-
+@Resource
 public class Fachada implements IFachada {
 
 	/**
@@ -44,13 +35,17 @@ public class Fachada implements IFachada {
 	/**
 	 * Mapa para conter as regras de negcio de todas operaes por entidade; O
 	 * valor  um mapa que de regras de negcio indexado pela operação
-	 */
-	
+	 */	
 	private Map<String, Map<String, List<IStrategy>>> rns;
 
 	private Resultado resultado;
+	
+	public Fachada(){
+		
+	}
 
-	public Fachada() {
+	public Fachada(Map<String, Map<String, List<IStrategy>>> rns) {
+		this.rns = rns;
 
 		/**
 		 * -------------- MAPAS DE DAO E STRATEGY---------------------
