@@ -7,7 +7,7 @@ import br.com.infomore.core.aplicacao.Resultado;
 import br.com.infomore.dominio.EntidadeDominio;
 
 
-public class AlterarSenhaCommand extends InfomoreCommand {
+public class AlterarSenhaCommand extends AbstractInfomoreCommand {
 
 	public Resultado execute(EntidadeDominio entidade) {
 

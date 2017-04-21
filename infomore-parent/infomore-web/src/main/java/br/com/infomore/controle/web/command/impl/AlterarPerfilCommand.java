@@ -7,7 +7,7 @@ import br.com.infomore.core.aplicacao.Resultado;
 import br.com.infomore.dominio.EntidadeDominio;
 
 
-public class AlterarPerfilCommand extends InfomoreCommand {
+public class AlterarPerfilCommand extends AbstractInfomoreCommand {
 
 	public Resultado execute(EntidadeDominio entidade) {
 

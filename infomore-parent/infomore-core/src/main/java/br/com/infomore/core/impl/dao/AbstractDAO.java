@@ -7,9 +7,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import br.com.infomore.core.IDAO;
 import br.com.infomore.dominio.EntidadeDominio;
 
-public abstract class AbstractDAO<K, T> {
+public abstract class AbstractDAO<K, T> implements IDAO<K, T>{
 	protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("InfoMore");
 
 	private Class<T> classeObjeto;
@@ -18,6 +19,7 @@ public abstract class AbstractDAO<K, T> {
 		this.classeObjeto = classeObjeto;
 	}
 
+	@Override
 	public void salvar(T objeto) {
 		EntityManager em = entityManagerFactory.createEntityManager();
 		em.getTransaction().begin();
@@ -25,6 +27,7 @@ public abstract class AbstractDAO<K, T> {
 		em.getTransaction().commit();
 	}
 
+	@Override
 	public void alterar(T objeto) {
 		EntityManager em = entityManagerFactory.createEntityManager();
 		em.getTransaction().begin();
@@ -32,6 +35,7 @@ public abstract class AbstractDAO<K, T> {
 		em.getTransaction().commit();
 	}
 
+	@Override
 	public void excluir(T objeto) {
 		EntityManager em = entityManagerFactory.createEntityManager();
 		em.getTransaction().begin();
@@ -39,11 +43,13 @@ public abstract class AbstractDAO<K, T> {
 		em.getTransaction().commit();
 	}
 
+	@Override
 	public T consultar(T objeto, K chave) {
 		EntityManager em = entityManagerFactory.createEntityManager();
 		return (T) em.find(classeObjeto, chave);
 	}
 
+	@Override
 	public List<T> listar() {
 		EntityManager em = entityManagerFactory.createEntityManager();
 		Query query = em.createQuery("SELECT T FROM " + (classeObjeto.getSimpleName() + " T"));

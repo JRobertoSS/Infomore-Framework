@@ -17,7 +17,7 @@ public class ValidaCamposCadastroUsuario implements IStrategy {
 
 		if (usuario.getNome().trim().isEmpty() || usuario.getEmail().trim().isEmpty()
 				|| usuario.getSenha().trim().isEmpty() || usuario.getDtNascimento() == null)
-			return "Todos os campos so obrigatrios! ";
+			return "Todos os campos são obrigatórios! ";
 		
 		return null;
 	}

@@ -12,7 +12,7 @@ public class ValidaLoginUsuario implements IStrategy {
 		Usuario usuario = (Usuario) entidade;
 		if (usuario.getEmail() == null || usuario.getEmail().trim().isEmpty() || usuario.getSenha() == null
 				|| usuario.getSenha().trim().isEmpty())
-			return "Por favor, insira um e-mail e senha vlidos!";
+			return "Por favor, insira um e-mail e senha válidos!";
 
 		return null;
 	}

@@ -16,7 +16,7 @@ public class ValidaConfirmacaoSenhaUsuario implements IStrategy {
 
 		// confirmao de senha no bate com a nova senha?
 		if (!senhaUsuario.getSenhaNova().equals(senhaUsuario.getConfirmaSenhaNova()))
-			return "Confirmao de senha incorreta!";
+			return "Confirmação de senha incorreta!";
 
 		return null;
 

@@ -8,7 +8,7 @@ import br.com.infomore.core.aplicacao.Resultado;
 import br.com.infomore.dominio.EntidadeDominio;
 
 
-public class AlterarClassificacaoCommand extends InfomoreCommand{
+public class AlterarClassificacaoCommand extends AbstractInfomoreCommand{
 
 	public Resultado execute(EntidadeDominio entidade) {
 		

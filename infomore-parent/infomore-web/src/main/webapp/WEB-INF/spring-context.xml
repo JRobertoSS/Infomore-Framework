@@ -27,11 +27,30 @@
 
 	<mvc:resources mapping="resources/**" location="resources/"
 		cache-period="31556926" />
-	
-	
-		
-		<!-- Impl dos Strategies utilizados nas operações de usuário -->
-	<bean id="validaEmail"
+
+	<!-- DAOs -->
+	<bean id="usuarioDao" class="br.com.infomore.core.impl.dao.UsuarioDAO" />
+	<bean id="categoriaDao" class="br.com.infomore.core.impl.dao.CategoriaDAO" />
+	<bean id="pontoDao" class="br.com.infomore.core.impl.dao.PontoDAO" />
+	<bean id="limiteRaioDao" class="br.com.infomore.core.impl.dao.LimiteRaioDAO" />
+
+	<util:map id="daos" map-class="java.util.HashMap" key-type="java.lang.String"
+		value-type="br.com.infomore.core.IDAO">
+		<entry key="br.com.infomore.dominio.Usuario" value-ref="usuarioDao" />
+		<entry key="br.com.infomore.dominio.Categoria" value-ref="categoriaDao" />
+		<entry key="br.com.infomore.dominio.Ponto" value-ref="pontoDao" />
+		<entry key="br.com.infomore.dominio.LimiteRaio" value-ref="limiteRaioDao" />
+	</util:map>
+
+
+	<!-- Impl dos Strategies utilizados nas operações de usuário -->
+
+	<bean id="abstractValidacaoUsuario" abstract="true"
+		class="br.com.infomore.core.impl.negocio.usuario.AbstractValidacaoUsuario">
+		<property name="usuarioDao" ref="usuarioDao" />
+	</bean>
+
+	<bean id="validaEmail" parent="abstractValidacaoUsuario"
 		class="br.com.infomore.core.impl.negocio.usuario.ValidaEmailUnicoUsuario" />
 	<bean id="validaCamposCadastro"
 		class="br.com.infomore.core.impl.negocio.usuario.ValidaCamposCadastroUsuario" />
@@ -86,7 +105,6 @@
 	</util:map>
 
 
-
 	<!-- Mapa de String(nome da classe) e Map<String (nome da operação), List<IStrategy> 
 		(regras)> -->
 
@@ -95,59 +113,60 @@
 		<entry key="br.com.infomore.dominio.Usuario" value-ref="rnsUsuario" />
 	</util:map>
 
-	<!-- Fachada com a injeção do mapa de rns e de daos -->
+ 	<!-- Resultado -->
+	<util:list id="entidades" list-class="java.util.ArrayList" />
+	
+	<bean id="resultado" class="br.com.infomore.core.aplicacao.Resultado">
+		<property name="entidades" ref="entidades"/>
+	</bean>
+	
+
+	<!-- Fachada com a injeção do mapa de rns e de daos e do resultado-->
 
 	<bean id="fachada" class="br.com.infomore.core.impl.controle.Fachada"
 		scope="singleton">
 		<property name="rns" ref="rns" />
+		<property name="daos" ref="daos" />
+		<property name="resultado" ref="resultado" />
 	</bean>
 
-	<!-- <property name="daos"> <map> <entry key="fai.domain.TipoCliente" value-ref="tipoClienteDAO" 
-		/> <entry key="fai.domain.Categoria" value-ref="categoriaJpaDAO" /> </map> 
-		</property> -->
-
-	
-
-	
 
 
 
-	<bean id="alterarClassificacaoCommand"
-		class="br.com.infomore.controle.web.command.impl.AlterarClassificacaoCommand">
+	<bean id="infomoreCommand" abstract="true"
+		class="br.com.infomore.controle.web.command.impl.AbstractInfomoreCommand">
 		<property name="fachada" ref="fachada" />
 	</bean>
 
-	<bean id="alterarCommand"
-		class="br.com.infomore.controle.web.command.impl.AlterarCommand">
-		<property name="fachada" ref="fachada" />
-	</bean>
+	<bean id="alterarClassificacaoCommand" parent="infomoreCommand"
+		class="br.com.infomore.controle.web.command.impl.AlterarClassificacaoCommand" />
 
-	<bean id="alterarPerfilCommand"
-		class="br.com.infomore.controle.web.command.impl.AlterarPerfilCommand">
-		<property name="fachada" ref="fachada" />
-	</bean>
-	<bean id="alterarSenhaCommand"
-		class="br.com.infomore.controle.web.command.impl.AlterarSenhaCommand">
-		<property name="fachada" ref="fachada" />
-	</bean>
+	<bean id="alterarCommand" parent="infomoreCommand"
+		class="br.com.infomore.controle.web.command.impl.AlterarCommand" />
 
-	<bean id="consultarCommand"
-		class="br.com.infomore.controle.web.command.impl.ConsultarCommand">
-		<property name="fachada" ref="fachada" />
-	</bean>
 
-	<bean id="excluirCommand"
-		class="br.com.infomore.controle.web.command.impl.ExcluirCommand">
-		<property name="fachada" ref="fachada" />
-	</bean>
+	<bean id="alterarPerfilCommand" parent="infomoreCommand"
+		class="br.com.infomore.controle.web.command.impl.AlterarPerfilCommand" />
 
-	<bean id="listarCommand" class="br.com.infomore.controle.web.command.impl.ListarCommand">
-		<property name="fachada" ref="fachada" />
-	</bean>
+	<bean id="alterarSenhaCommand" parent="infomoreCommand"
+		class="br.com.infomore.controle.web.command.impl.AlterarSenhaCommand" />
 
-	<bean id="salvarCommand" class="br.com.infomore.controle.web.command.impl.SalvarCommand">
-		<property name="fachada" ref="fachada" />
-	</bean>
+
+	<bean id="consultarCommand" parent="infomoreCommand"
+		class="br.com.infomore.controle.web.command.impl.ConsultarCommand" />
+
+
+	<bean id="excluirCommand" parent="infomoreCommand"
+		class="br.com.infomore.controle.web.command.impl.ExcluirCommand" />
+
+
+	<bean id="listarCommand" parent="infomoreCommand"
+		class="br.com.infomore.controle.web.command.impl.ListarCommand" />
+
+
+	<bean id="salvarCommand" parent="infomoreCommand"
+		class="br.com.infomore.controle.web.command.impl.SalvarCommand" />
+
 
 	<util:map id="commands" map-class="java.util.HashMap"
 		key-type="java.lang.String" value-type="br.com.infomore.controle.web.command.ICommand">
