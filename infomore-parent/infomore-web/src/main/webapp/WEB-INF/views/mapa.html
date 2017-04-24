@@ -1,19 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html ng-app="infomore">
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 
-<!-- Import da taglib pra uso de jstl -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="/infomore/resources/js/materialize.min.js"></script>
-<script type="text/javascript" src="/infomore/resources/js/mapa.js" charset="UTF-8"></script>
-<script type="text/javascript" src="/infomore/resources/js/comum.js"></script>
+<script type="text/javascript" th:src="@{/resources/js/materialize.min.js"></script>
+<script type="text/javascript" th:src="@{/resources/js/mapa.js" charset="UTF-8"></script>
+<script type="text/javascript" th:src="@{/resources/js/comum.js"></script>
 
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLLbi_ei8WPPbzyCq5_UUCN0Iy--V3Lo"></script>
@@ -22,12 +20,12 @@
 	rel="stylesheet">
 
 
-<link type="text/css" rel="stylesheet" href="/infomore/resources/css/materialize.min.css"
+<link type="text/css" rel="stylesheet" th:href="@{/resources/css/materialize.min.css"
 	media="screen,projection" />
 
-<link href="/infomore/resources/css/comum.css" rel="stylesheet">
+<link th:href="@{/resources/css/comum.css" rel="stylesheet">
 
-<link href="/infomore/resources/css/mapa.css" rel="stylesheet">
+<link th:href="@{/resources/css/mapa.css" rel="stylesheet">
 
 
 <!--Let browser know website is optimized for mobile-->
@@ -37,9 +35,10 @@
 </head>
 <body class="corpo">
 
-	<%@include file="menu/navigator.jsp"%>
-
-	<%@include file="modal/mensagem.jsp"%>
+	
+	<div th:include="/modal/navigator" />
+	
+	<div th:include="/modal/mensagem" />
 
 	<div id="page-content-wrapper" class="container">
 
@@ -66,20 +65,20 @@
 		<div class="fixed-action-btn click-to-toggle"
 			style="bottom: 20px; right: 20px;">
 			<a class="btn-floating btn-large pink"> <img alt="filtro"
-				src="/infomore/resources/images/infomore_button.png">
+				src="images/infomore_button.png">
 			</a>
 
 			<ul>
 
 				<li><a id="buttonSaude" class="btn-floating red "
-					onclick="filtrarCategorias('Saúde');"><i class="material-icons">local_hospital</i></a></li>
+					onclick="filtrarCategorias('Saï¿½de');"><i class="material-icons">local_hospital</i></a></li>
 
 				<li><a id="buttonEducacao" class="btn-floating purple"
-					onclick="filtrarCategorias('Educação');"><i
+					onclick="filtrarCategorias('Educaï¿½ï¿½o');"><i
 						class="material-icons">school</i></a></li>
 
 				<li><a id="buttonSeguranca" class="btn-floating black"
-					onclick="filtrarCategorias('Segurança');"><i
+					onclick="filtrarCategorias('Seguranï¿½a');"><i
 						class="material-icons">security</i></a></li>
 
 				<li><a id="buttonComodidades" class="btn-floating green"
@@ -95,7 +94,7 @@
 						class="material-icons">directions_bus</i></a></li>
 
 				<li><a id="buttonOcorrencias" class="btn-floating orange"
-					onclick="filtrarCategorias('Ocorrências');"><i
+					onclick="filtrarCategorias('Ocorrï¿½ncias');"><i
 						class="large material-icons">report</i></a></li>
 			</ul>
 		</div>

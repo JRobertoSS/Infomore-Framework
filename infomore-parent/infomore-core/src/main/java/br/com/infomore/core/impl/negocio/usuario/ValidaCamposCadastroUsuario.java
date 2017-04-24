@@ -14,7 +14,11 @@ public class ValidaCamposCadastroUsuario implements IStrategy {
 	@Override
 	public String processar(EntidadeDominio entidade) {
 		Usuario usuario = (Usuario) entidade;
-
+		
+		if (usuario.getNome() == null || usuario.getEmail() == null
+				|| usuario.getSenha() == null || usuario.getDtNascimento() == null )
+			return "Todos os campos são obrigatórios! ";
+		
 		if (usuario.getNome().trim().isEmpty() || usuario.getEmail().trim().isEmpty()
 				|| usuario.getSenha().trim().isEmpty() || usuario.getDtNascimento() == null)
 			return "Todos os campos são obrigatórios! ";

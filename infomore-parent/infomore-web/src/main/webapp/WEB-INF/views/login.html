@@ -1,20 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html ng-app="infomore">
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 
-<!-- Import da taglib pra uso de jstl -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
-<script type="text/javascript" src="/infomore/resources/js/materialize.min.js"></script>
-<script type="text/javascript" src="/infomore/resources/js/login.js"></script>
-<script type="text/javascript" src="/infomore/resources/js/comum.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+<script type="text/javascript" th:src="@{/resources/js/materialize.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/login.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/comum.js}"></script>
 
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLLbi_ei8WPPbzyCq5_UUCN0Iy--V3Lo"></script>
@@ -25,12 +24,12 @@
 
 
 
-<link type="text/css" rel="stylesheet" href="/infomore/resources/css/materialize.min.css"
+<link type="text/css" rel="stylesheet" th:href="@{/resources/css/materialize.min.css}"
 	media="screen,projection" />
 
-<link href="/infomore/resources/css/comum.css" rel="stylesheet">
+<link th:href="@{/resources/css/comum.css}" rel="stylesheet">
 
-<link href="/infomore/resources/css/login.css" rel="stylesheet" />
+<link th:href="@{/resources/css/login.css}" rel="stylesheet" />
 
 
 
@@ -40,12 +39,13 @@
 <title>Infomore</title>
 </head>
 <body class="corpo">
-	
+
 	<div id="page-content-wrapper" class="container">
-		
-		<img src="/infomore/resources/images/logo_infomore.png" alt="InfoMore" class="logo-infomore" />
-		
-		<form action="efetuaLogin" method="post">
+
+		<img th:src="@{/resources/images/logo_infomore.png}" alt="InfoMore"
+			class="logo-infomore" />
+
+		<form action="login" method="post">
 
 			<div class="form-content">
 				<div class="row">
@@ -76,14 +76,15 @@
 				<div class="row">
 					<div class="center-align">
 						<a class="waves-effect waves-light links"
-							href="cadastro">Sou novo por aqui!</a>
+							href="navegar?acao=cadastro">Sou novo por aqui!</a>
 					</div>
 				</div>
 			</div>
 			<input type="hidden" name="acao" value="consultar" />
 		</form>
 
-		<%@ include file="modal/mensagem.jsp"%>
+		<div th:include="/modal/mensagem" />
+		
 	</div>
 
 

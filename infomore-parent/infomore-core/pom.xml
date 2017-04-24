@@ -5,7 +5,6 @@
 	<groupId>br.com.infomore</groupId>
 	<artifactId>infomore-core</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.01-SNAPSHOT</version>
 	<name>Infomore Core</name>
 	<url>http://www.infomore.com.br</url>
 

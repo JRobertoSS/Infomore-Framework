@@ -12,13 +12,44 @@
     http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
 	<context:component-scan base-package="br.com.infomore" />
+
+	<!-- Use spring servlet for all requests, including static resources -->
+	<mvc:default-servlet-handler />
+
+	<!-- Use @MVC annotations -->
 	<mvc:annotation-driven />
 
+	<!-- Thymeleaf View Resolver - implementation of Spring's ViewResolver interface -->
+	<bean id="viewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+		<property name="characterEncoding" value="UTF-8" />
+	</bean>
+
+	<bean id="templateResolver"
+		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".html" />
+		<property name="templateMode" value="HTML5" />
+	</bean>
+
+	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+	</bean>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/views/" />
-		<property name="suffix" value=".jsp" />
+		<property name="suffix" value=".html" />
+		<property name="order" value="2" />
+		<property name="viewNames" value="*html" />
+	</bean>
+
+	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+		<property name="order" value="1" />
+		<property name="viewNames" value="*.html,*.xhtml" />
 	</bean>
 
 	<mvc:interceptors>
@@ -113,15 +144,15 @@
 		<entry key="br.com.infomore.dominio.Usuario" value-ref="rnsUsuario" />
 	</util:map>
 
- 	<!-- Resultado -->
+	<!-- Resultado -->
 	<util:list id="entidades" list-class="java.util.ArrayList" />
-	
-	<bean id="resultado" class="br.com.infomore.core.aplicacao.Resultado">
-		<property name="entidades" ref="entidades"/>
-	</bean>
-	
 
-	<!-- Fachada com a injeção do mapa de rns e de daos e do resultado-->
+	<bean id="resultado" class="br.com.infomore.core.aplicacao.Resultado">
+		<property name="entidades" ref="entidades" />
+	</bean>
+
+
+	<!-- Fachada com a injeção do mapa de rns e de daos e do resultado -->
 
 	<bean id="fachada" class="br.com.infomore.core.impl.controle.Fachada"
 		scope="singleton">

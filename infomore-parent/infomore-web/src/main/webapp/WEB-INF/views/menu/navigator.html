@@ -1,5 +1,10 @@
-<link href="/infomore/resources/css/navigator.css" rel="stylesheet" />
-<script type="text/javascript" src="/infomore/resources/js/navigator.js"></script>
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<link th:href="@{/resources/css/navigator.css" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/resources/js/navigator.js"></script>
 
 <nav>
 	<ul id="dropdownOpcoes" class="dropdown-content collection">
@@ -14,8 +19,8 @@
 			class="navigator-item">Salvar este local</a></li>
 		<li class="collection-item"><a href="meuLocal?acao=listar"
 			class="navigator-item">Meus locais</a></li>
-			
-			
+
+
 		<li class="collection-item"><a href="navegar?acao=classificacao"
 			class="navigator-item">Prioridades</a></li>
 		<li class="divider"></li>
@@ -34,6 +39,7 @@
 					class="material-icons">settings</i></a></li>
 		</ul>
 		<a href="navegar?acao=mapa" class="right"><img
-			src="/infomore/resources/images/icon_mapa.png" /></a>
+			th:src="@{/resources/images/icon_mapa.png" /></a>
 	</div>
 </nav>
+</html>

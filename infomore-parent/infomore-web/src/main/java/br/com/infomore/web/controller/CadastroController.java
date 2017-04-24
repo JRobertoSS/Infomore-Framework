@@ -21,7 +21,7 @@ public class CadastroController extends InfomoreController{
 	}
 	
 	@RequestMapping("cadastrar")
-	public String cadastrar(Usuario usuario, HttpServletRequest request) {
+	public String cadastrar(Usuario usuario, HttpServletRequest request){
 		Resultado resultado = processar(usuario, request, Acao.SALVAR);
 		
 	  if( resultado.getMsg() == null ) {
