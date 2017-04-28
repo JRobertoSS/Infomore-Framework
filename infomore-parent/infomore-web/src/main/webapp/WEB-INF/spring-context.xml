@@ -103,6 +103,7 @@
 		<ref bean="validaEmail" />
 		<ref bean="validaCamposCadastro" />
 		<ref bean="validaConfirmacaoSenha" />
+		<ref bean="preencheSenhaNova" />
 	</util:list>
 
 	<!-- Regras para alterar o perfil do usuário -->

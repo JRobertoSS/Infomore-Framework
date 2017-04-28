@@ -4,15 +4,15 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-<link rel="stylesheet" href="/resources/css/mensagem.css">
+<link rel="stylesheet" th:href="@{/resources/css/mensagem.css}">
 </head>
 
 <body>
 
-	<div th:if="${param.mensagem != null && param.tipoMensagem != null}">
-		<div id="modalMsg" class="modal ${tipoMensagem}">
+	<div th:if="${mapaMensagem != null}">
+		<div id="modalMsg" class="modal" th:classappend="${mapaMensagem.tipoMensagem}">
 			<div class="modal-content">
-				<b><div th:text="${param.mensagem}" /></b>
+				<b><span th:text="${mapaMensagem.mensagem}" ></span></b>
 			</div>
 		</div>
 

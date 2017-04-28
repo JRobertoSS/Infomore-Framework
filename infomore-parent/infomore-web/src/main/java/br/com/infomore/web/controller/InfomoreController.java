@@ -1,5 +1,6 @@
 package br.com.infomore.web.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,15 +17,18 @@ public class InfomoreController {
 
 	@Autowired
 	protected Map<String, ICommand> commands;
+	
+	protected Map<String, String> mapaMensagem;
 
 
-	public Resultado processar(EntidadeDominio entidade, HttpServletRequest request, String acao){
+	public Resultado processar(EntidadeDominio entidade, String acao){
 		return commands.get( acao ).execute(entidade);
 	}
 	
-	protected void setMensagem( HttpSession session, String mensagem, String tipoMensagem){
-		session.setAttribute("mensagem", mensagem);
-		session.setAttribute("tipoMensagem", tipoMensagem);
+	protected void setMensagem(String mensagem, String tipoMensagem){
+		mapaMensagem = new HashMap<>();
+		mapaMensagem.put("mensagem", mensagem);
+		mapaMensagem.put("tipoMensagem", tipoMensagem);
 	}
 	
 	protected String getMensagemSucesso( String entidade, String operacao){
@@ -39,6 +43,7 @@ public class InfomoreController {
 	public void setCommands(Map<String, ICommand> commands) {
 		this.commands = commands;
 	}
+	
 	
 	
 }

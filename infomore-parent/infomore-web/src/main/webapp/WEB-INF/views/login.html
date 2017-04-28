@@ -39,28 +39,31 @@
 <title>Infomore</title>
 </head>
 <body class="corpo">
-
+	
+	
 	<div id="page-content-wrapper" class="container">
 
 		<img th:src="@{/resources/images/logo_infomore.png}" alt="InfoMore"
 			class="logo-infomore" />
 
-		<form action="login" method="post">
+		<form th:action="@{/efetuaLogin}" method="post" th:object="${usuario}">
 
 			<div class="form-content">
 				<div class="row">
 					<div class="input-field col s10">
-						<i class="material-icons prefix">email</i> <input id="email"
-							type="email" class="validate" name="inputEmail"> <label
-							for="email">E-mail</label>
+						<i class="material-icons prefix">email</i> <input id="inputEmail"
+							th:field="*{email}"
+							type="email" class="validate" name="email"> <label
+							for="inputEmail">E-mail</label>
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="input-field col s10">
-						<i class="material-icons prefix">lock</i> <input id="senha"
-							type="password" class="validate" name="inputSenha"> <label
-							for="senha">Senha</label>
+						<i class="material-icons prefix">lock</i> <input id="inputSenha"
+							th:field="*{senha}"
+							type="password" class="validate" name="senha"> <label
+							for="inputSenha">Senha</label>
 					</div>
 				</div>
 
@@ -76,13 +79,12 @@
 				<div class="row">
 					<div class="center-align">
 						<a class="waves-effect waves-light links"
-							href="navegar?acao=cadastro">Sou novo por aqui!</a>
+							th:href="@{/cadastro}">Sou novo por aqui!</a>
 					</div>
 				</div>
 			</div>
-			<input type="hidden" name="acao" value="consultar" />
 		</form>
-
+		
 		<div th:include="/modal/mensagem" />
 		
 	</div>
